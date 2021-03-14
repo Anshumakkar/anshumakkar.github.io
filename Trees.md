@@ -12,6 +12,18 @@ In a Binary Tree, Each Node has 2 children.<br>
 a) Left Child Node <br>
 b) Right Child Node <br>
 
+<pre>
+
+      tree
+      ----
+       j    &lt;-- root
+     /   \
+    f      k  
+  /   \      \
+ a     h      z    &lt;-- leaves
+</pre>
+
+ 
 ```
 type Node struct{
     left *Node;
