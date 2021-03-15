@@ -75,7 +75,9 @@ func (n *Node) levelOrder() {
 	q := &Queue{}
 	q.push(n)
 
-	/* Keep popping the Nodes until queue is not empty i.e. all nodes are not traversed*/
+	/* Keep popping the Nodes until queue is not empty 
+	 *  i.e. all nodes are not traversed
+	*/
 	for !q.isEmpty() {
 		temp := q.front()
 		q.pop()
@@ -91,6 +93,128 @@ func (n *Node) levelOrder() {
 		}
 	}
 	fmt.Printf("\n")
+}
+```
+
+<i><b>Insert a Node in Tree </b></i>
+<p> We will insert a node in Tree by taking use of Level Order Traversal, and while traversal where we find 1st child node which is empty(node for which left/right is nil) </p>
+
+```
+func (n *Node) Insert(num int) {
+
+	if n == nil {
+		return
+	}
+
+	q := &Queue{}
+
+	q.push(n)
+
+	for !q.isEmpty() {
+		tempNode := q.front()
+		q.pop()
+
+		if tempNode.Left != nil {
+			q.push(tempNode.Left)
+		} else {
+			fmt.Println("Inserting in Left Side")
+			tempNode.Left = &Node{Key: num, Left: nil, Right: nil}
+			return
+			/* Return from the point where we have inserted the node*/
+		}
+
+		if tempNode.Right != nil {
+			q.push(tempNode.Right)
+		} else {
+			fmt.Println("Inserting in Right Side")
+			tempNode.Right = &Node{Key: num, Left: nil, Right: nil}
+			return
+			/* Return from the point where we have inserted the node*/
+		}
+
+	}
+}
+```
+
+<i><b>Delete a Node in Tree </b></i>
+<ol>
+	<li>Find the Node which is to be deleted using Level Order Traversal.</li>
+	<li>Save the last Node as deepest Node in Level Order Traversal i.e. rightMost Node in Tree.</li>
+	<li>Replace the Data of Deepest Node with KeyNode(To be deleted), and delete the Deepest Node.</li>
+</ol>
+
+```
+func (n *Node) deleteDeepest(deepNode *Node) {
+	if n == nil {
+		return
+	}
+
+	q := &Queue{}
+	q.push(n)
+
+	for !q.isEmpty() {
+		temp := q.front()
+		q.pop()
+
+		if temp == deepNode {
+			temp = nil
+		}
+
+		if temp.Left != nil {
+			if temp.Left == deepNode {
+				temp.Left = nil
+				return
+			} else {
+				q.push(temp.Left)
+			}
+		}
+
+		if temp.Right != nil {
+			if temp.Right == deepNode {
+				temp.Right = nil
+				return
+			} else {
+				q.push(temp.Right)
+			}
+		}
+
+	}
+}
+
+func (n *Node) Delete(num int) {
+	//Find the RightMost Node and Replace the content of Node to be Found
+	if n == nil {
+		return
+	}
+
+	q := &Queue{}
+	q.push(n)
+	var keyNode *Node
+	var temp *Node
+	for !q.isEmpty() {
+		temp = q.front()
+		q.pop()
+
+		if temp.Key == num {
+			keyNode = temp
+		}
+
+		if temp.Left != nil {
+			q.push(temp.Left)
+		}
+
+		if temp.Right != nil {
+			q.push(temp.Right)
+		}
+
+	}
+
+	if keyNode != nil {
+		deepestNode := temp
+		deepestNodeKey := temp.Key
+		n.deleteDeepest(deepestNode)
+		keyNode.Key = deepestNodeKey
+	}
 }
 ```
 
