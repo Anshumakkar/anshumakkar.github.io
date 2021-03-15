@@ -221,7 +221,7 @@ func (n *Node) Delete(num int) {
 <i><b>Level Order Traversal Using DFS </b></i>
 <ol>
 <li>Use Recursion to traverse to deeper nodes</li>
-<li>This Method can be used to print nodes which are k distant from root using same methodology.
+<li>This Method can be used to print nodes which are k distant from root using same methodology.</li>
 </ol>
 
 ```
