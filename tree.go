@@ -176,6 +176,27 @@ func (n *Node) Insert(num int) {
 	}
 }
 
+func (n *Node) levelOrderDFS(level int) bool {
+	if n == nil {
+		return false
+	}
+
+	if level == 0 {
+		fmt.Println(n.Key)
+		return true
+	}
+	left := false
+	right := false
+	/*Use Recursion to go to deeper nodes*/
+	if n.Left != nil {
+		left = n.Left.levelOrderDFS(level - 1)
+	}
+	if n.Right != nil {
+		right = n.Right.levelOrderDFS(level - 1)
+	}
+	return (left || right)
+}
+
 func main() {
 	root := &Node{Key: 10}
 
@@ -189,6 +210,15 @@ func main() {
 	root.Right.Right = &Node{Key: 16}
 
 	root.levelOrder()
+
+	fmt.Println("DFS level order")
+	v := true
+	level := 0
+	for v {
+		v = root.levelOrderDFS(level)
+		level++
+	}
+	fmt.Println(" ")
 
 	root.inorder()
 

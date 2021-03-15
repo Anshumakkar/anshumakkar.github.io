@@ -218,5 +218,55 @@ func (n *Node) Delete(num int) {
 }
 ```
 
+<i><b>Level Order Traversal Using DFS </b></i>
+<ol>
+<li>Use Recursion to traverse to deeper nodes</li>
+<li>This Method can be used to print nodes which are k distant from root using same methodology.
+</ol>
+
+```
+/*Recurive Function*/
+func (n *Node) levelOrderDFS(level int) bool {
+	if n == nil {
+		return false
+	}
+
+	if level == 0 {
+		fmt.Println(n.Key)
+		return true
+	}
+	left := false
+	right := false
+	/*Use Recursion to go to deeper nodes*/
+	if n.Left != nil {
+		left = n.Left.levelOrderDFS(level - 1)
+	}
+	if n.Right != nil {
+		right = n.Right.levelOrderDFS(level - 1)
+	}
+	return (left || right)
+}
+
+```
+
+Call this Recurive Function for Each Level or obtain Height
+of Tree and utilise that. 
+
+```
+	v := true
+	level := 0
+	for v {
+		v = root.levelOrderDFS(level)
+		level++
+	}
+```
+
+```
+//h = height of Tree
+for level<h{
+	 root.levelOrderDFS(level)
+	level++
+}
+```
 
 
